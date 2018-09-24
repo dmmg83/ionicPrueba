@@ -1,0 +1,7 @@
+{
+  "name": "SQLitePorteIII",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

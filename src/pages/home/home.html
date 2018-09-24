@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      SQLite, Backend, Files
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label stacked>Valor</ion-label>
+    <ion-input [(ngModel)]="developer.pkidtiposector" #txtValor (input)="txtValor.value = format(developer.pkidtiposector)"></ion-input>
+  </ion-item>
+  <br>
+  <button ion-button full (click)="addDeveloper()">Adicionar Tipo Sector</button>
+  <button ion-button full (click)="getSectoresApi()">Sincronizar Datos</button>
+  <button ion-button full (click)="loadDeveloperData()">Listar Datos Importados</button>
+<br>
+  <button ion-button full (click)="backup()">Backup</button>
+  <button ion-button full (click)="restore()">Restaurar</button>
+  <br>
+  <button ion-button full (click)="audio()">Audio</button>
+
+  <ion-list>
+    <ion-item *ngFor="let dev of developers">
+      <h2>ID: {{ dev.pkidtiposector }}</h2>
+      <p>Nombre: {{ dev.nombretiposector }}</p>
+      <p>Cod: {{ dev.codigotiposector }}</p>
+      <p>Activo: {{ dev.tiposectoractivo }}</p>
+      <p>Fecha Creación: {{ dev.creaciontiposector }}</p>
+      <P>Fecha mod: {{ dev.modificaciontiposector }}</P>
+      <p>Descripción: {{ dev.descripciontiposector }}</p>
+
+    </ion-item>
+  </ion-list>
+</ion-content>
