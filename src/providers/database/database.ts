@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { Storage } from '@ionic/storage';
 import { File } from '@ionic-native/file';
-
+import jsSHA from 'jssha'
 /*
   Generated class for the DatabaseProvider provider.
 
@@ -85,6 +85,7 @@ export class DatabaseProvider {
   //Llena la base de datos
   fillDatabase(sql: string = null) {
     this.setOcupado('Importando BD');
+    
     if (sql != null) {
       this.sqlitePorter.importSqlToDb(this.database, sql)
         .then(data => {

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { DatabaseProvider } from '../../providers/database/database';
+import jsSHA from 'jssha'
 
 @Component({
   selector: 'page-home',
@@ -45,12 +46,23 @@ export class HomePage {
     public loadingCtrl: LoadingController,
     private speechRecognition: SpeechRecognition
   ) {
+  
+    let aux:boolean  = this.comprarPassword("","");
+    console.log(aux);
+    
     // this.databaseprovider.getDatabaseState().subscribe(rdy => {
     //   if (rdy) {
     //     //this.loadDeveloperData();
     //     console.log("App Lista! home.ts");
     //   }
     // })
+  }
+
+  private comprarPassword (passTexto:string, passEncriptada:string):boolean {
+    let shaObj = new jsSHA("SHA-256", "TEXT");
+    shaObj.update(passTexto);
+    let hash = shaObj.getHash("HEX");
+    return hash==passEncriptada;
   }
 
   //Carga los registros existentes
@@ -134,6 +146,7 @@ export class HomePage {
         let ContadorLongitud = datosServidor.length;
         console.log("Longitud: " + ContadorLongitud);
         this.sql_tipoSectores = '';
+        let aux;
         datosServidor.forEach(elemento => {
           this.sql_tipoSectores += "INSERT INTO tsector ( pkidtiposector, codigotiposector, nombretiposector, tiposectoractivo, creaciontiposector, modificaciontiposector, descripciontiposector ) VALUES (" +
             "" + elemento.pkidtiposector + ", " +
@@ -142,26 +155,7 @@ export class HomePage {
             "'" + elemento.tiposectoractivo + "', " +
             "'" + elemento.creaciontiposector + "', " +
             "'" + elemento.modificaciontiposector + "', " +
-            "'" + elemento.descripciontiposector + "'; ";
-
-
-          "INSERT INTO tusuario (pkidusuario,"
-            + "identificacion,"
-            + "nombreusuario,"
-            + "apellido,"
-            + "usuarioactivo,"
-            + "fkidrol,"
-            + "contrasenia,"
-            + "rutaimagen)"
-          "VALUES (" + elemento.pkidusuario+", "
-            + "'" + elemento.identificacion + "',"
-            + "'" + elemento.nombreusuario + "',"
-            + "'" + elemento.apellido + "',"
-            + "'" + elemento.usuarioactivo + "',"
-            + "'" + elemento.fkidrol + "',"
-            + "'" + elemento.contrasenia + "',"
-            + "'" + elemento.rutaimagen + ");"
-
+            "'" + elemento.descripciontiposector + "'); ";
 
 
         });
@@ -250,6 +244,13 @@ export class HomePage {
         (onerror) => console.log('error:', onerror)
       )
 
+  }
+
+
+  perdioFoco()
+  {
+    console.log("perdió foco");
+    
   }
 
 }

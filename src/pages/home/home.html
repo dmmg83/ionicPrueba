@@ -9,7 +9,9 @@
 <ion-content padding>
   <ion-item>
     <ion-label stacked>Valor</ion-label>
-    <ion-input [(ngModel)]="developer.pkidtiposector" #txtValor (input)="txtValor.value = format(developer.pkidtiposector)"></ion-input>
+    <ion-input [(ngModel)]="developer.pkidtiposector" 
+    #txtValor (input)="txtValor.value = format(developer.pkidtiposector)"
+    (ionBlur)="perdioFoco()"></ion-input>
   </ion-item>
   <br>
   <button ion-button full (click)="addDeveloper()">Adicionar Tipo Sector</button>

@@ -89,6 +89,6 @@
     <allow-navigation href="http://192.168.56.1:8100" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-speechrecognition" spec="^1.2.0" />
-    <allow-navigation href="http://192.168.1.25:8100" sessionid="bcb54566" />
+    <allow-navigation href="http://192.168.1.25:8100" sessionid="ad1e1ebb" />
     <engine name="android" spec="7.1.1" />
 </widget>
