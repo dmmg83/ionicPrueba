@@ -25,7 +25,7 @@ export class ReciboPage {
   ionViewDidLoad() {
     this.pChildData = this.navParams.get("datosRecibo");
     this.retornar=this.navParams.get("callback");
-    console.log(this.pChildData);    
+    // console.log(this.pChildData);
   }
 
   aceptar(){
