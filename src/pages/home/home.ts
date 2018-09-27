@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Events, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Events, Platform, DateTime } from 'ionic-angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { DatabaseProvider } from '../../providers/database/database';
+import { ReciboPage } from '../recibo/recibo';
 import jsSHA from 'jssha'
 
 @Component({
@@ -12,6 +13,7 @@ import jsSHA from 'jssha'
 })
 export class HomePage {
 
+  public reciboPage = ReciboPage;
   developer = {};
   developers = [];
 
@@ -46,10 +48,10 @@ export class HomePage {
     public loadingCtrl: LoadingController,
     private speechRecognition: SpeechRecognition
   ) {
-  
-    let aux:boolean  = this.comprarPassword("","");
+
+    let aux: boolean = this.comprarPassword("", "");
     console.log(aux);
-    
+
     // this.databaseprovider.getDatabaseState().subscribe(rdy => {
     //   if (rdy) {
     //     //this.loadDeveloperData();
@@ -58,11 +60,11 @@ export class HomePage {
     // })
   }
 
-  private comprarPassword (passTexto:string, passEncriptada:string):boolean {
+  private comprarPassword(passTexto: string, passEncriptada: string): boolean {
     let shaObj = new jsSHA("SHA-256", "TEXT");
     shaObj.update(passTexto);
     let hash = shaObj.getHash("HEX");
-    return hash==passEncriptada;
+    return hash == passEncriptada;
   }
 
   //Carga los registros existentes
@@ -245,12 +247,38 @@ export class HomePage {
       )
 
   }
+  
+  imprimirFunc = (resultado) => {
+    return new Promise((resolve, reject) => {
+        if(resultado)
+        {
+          console.log("imprimir");          
+        }
+        else
+        {
+          console.log("no imprimir");          
+        }
+        
+        resolve();
+    });
+   }
 
-
-  perdioFoco()
-  {
+  perdioFoco() {
     console.log("perdió foco");
+  }
+
+  //datos  = [];
+  irARecibo() {
+    console.log("recibo")
     
+    let datos=[];
+    datos.push({"E":"No Recibo","V":"001"});
+    datos.push({"E":"Tarifa","V":"$10.000"});
+    datos.push({"E":"Recaudador","V":"Alfonso Flores"});
+    datos.push({"E":"Usuario","V":"Fulanito Pérez"});
+    datos.push({"E":"Fecha","V": new Date().toISOString()});
+    
+    this.navCtrl.push("ReciboPage",{datosRecibo: datos, callback: this.imprimirFunc});
   }
 
 }
